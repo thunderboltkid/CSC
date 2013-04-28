@@ -1,5 +1,5 @@
 function L = pulse(t,i,magn,start);
-    period = 2;
+    period = 1;
     if t >= start;
         if t <= start+period;
         L = magn(i);

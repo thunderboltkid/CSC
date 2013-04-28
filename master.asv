@@ -12,7 +12,7 @@ SYSTEMS  = {@(L,var) lag1(L,var)}% @(L,var) lag2(L,var)   }% @(L,var)lag3(L,var)
 magnE     = [10 10 100 10 10];                                                           % define a suitable input change for each of the systems
 magnV     = [15 30 140 13 17]; 
 fid = fopen('results.html','w');
-fprintf(fid, ['<table align="center"><tr><td width="50"></td><td width="50"></td><td width="50"></td></tr>']);
+fprintf(fid, ['<table><tr><td width="50"></td><td width="50"></td><td width="50"></td></tr>']);
                                                  
 for i=1:length(SYSTEMS);                    %e.g. cstr
     for j=1:length(LOAD);                 %e.g. step
@@ -62,17 +62,17 @@ for i=1:length(SYSTEMS);                    %e.g. cstr
                    f = figure();
                    subplot(1,2,1)
                    plot(tspan,ze.inputdata)
-                   axis([0 steps+10 -5 (magnE(i)+10)])
                    subplot(1,2,2)
                    plot(tspan,ze.outputdata,tspan,predictplotvec)
-                   axis([0 steps+10 -5 (magnE(i)+10)])
-                   saveas(f, strcat('graph',num2str(i),num2str(j),num2str(l),'.png'));
+                   saveas(f, 'graph.png');
                    %
                    fid = fopen('results.html','a')
                    fprintf(fid, ['<tr><td>System :',num2str(i),'</td>']);
-                   fprintf(fid, ['<td>Load :',num2str(j),'</td>']);
-                   fprintf(fid, ['<td>ID Method :',num2str(l),'</td></tr>']);
-                   fprintf(fid, ['<tr><td></td><td></td><td><img src="',strcat('graph',num2str(i),num2str(j),num2str(l),'.png'),'" width="800" height="400"></td></tr>']);
+                   fprintf(fid, ['<td>Load :',num2str(j)]);
+                   fprintf(fid, ['</td>']);
+                   fprintf(fid, ['<td>ID Method :',num2str(l)]);
+                   fprintf(fid, ['</td>']);
+                   fprintf(fid, ['<tr><td></td><td></td><td><img src="graph.png" width="600" height="400"></td></tr>']);
                    fclose(fid);
                    
                    
