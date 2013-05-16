@@ -1,9 +1,9 @@
-function D = Arx(data,orders)
+function BoxJen(data,orders)
 
-         % DATA PREPARATION
+        % DATA PREPARATION
             InputPoles = orders(1);
             OutputPoles= orders(2);
             Deadtime   = orders(3);
          
-D = arx(data,'na',InputPoles,'nb',OutputPoles,'nk',Deadtime)
+D = bj(data,'na',InputPoles,'nb',OutputPoles,'nk',Deadtime)
 end

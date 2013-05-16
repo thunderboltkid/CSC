@@ -8,7 +8,7 @@ for t = 1:Ts:steps;
     end
     L       = LOAD{j}(t,i,magn,start)  ;
     dS      = SYSTEMS{i}(L,var)  ;
-    var(2)  =var(2) + dS(2);%% INPUT variable always var(1) OUTPUT variable always var(2)
+    var(2)  =var(2) + dS(2);%% INPUT variable always var(1) OUTPUT variable always var(2)   V = [L A(2) A(1)]; 
     var(3)  =var(3) + dS(3);
     if t==1;
         inputvar_ss = dS(1);
