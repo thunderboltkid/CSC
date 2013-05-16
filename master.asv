@@ -34,8 +34,8 @@ for i=1:length(SYSTEMS);                    %   e.g. cstr
             for l=1:length(IDMETHOD);
                 R = IDMETHOD{l}(ze,nn);
                 theta = [(-1)*R.a(2:end), R.b]';
-                predictplotvec = M*theta;
-                %result{i,j,k,l} = IDMETHOD{l}(ze,nn);
+                pred = M*theta;
+                    %result{i,j,k,l} = IDMETHOD{l}(ze,nn);
 %                 inputplotvec = ze.inputdata;
 %                 outputplotvec= ze.outputdata;
       % For each type of input, how well does the theta identified by the method above combined with that input predict the output? 
@@ -45,19 +45,30 @@ for i=1:length(SYSTEMS);                    %   e.g. cstr
                         v(:,2) = dev(e(:,2),start); v(:,3) = dev(v(:,3),start);                                                  % create validation data set and plot
                         zv = iddata(v(:,3) , v(:,2) , Ts);       % Output, Input, Stepsize                                                    % true response 
                         Mv = buildmatrix(zv,nn);
-                        
-                %plot & save
-                    r = length(LOAD);
+                           %plot & save
                     f = figure();
-                    subplot(r,2,m);
+                    subplot(2,2,1);
                     plot(tspan,ze.inputdata);
                     axis([0 steps+10 -5 (magnE(i)+10)]);
-                    subplot(r,2,2*m);
-                    plot(tspan,ze.outputdata,tspan,predictplotvec);
+                    subplot(2,2,2);
+                    plot(tspan,ze.outputdata,tspan,pred);
+                    subplot(2,2,3);
+                    plot(tspan,ze.inputdata);
+                    axis([0 steps+10 -5 (magnE(i)+10)]);
+                    subplot(2,2,2);
+                    plot(tspan,ze.outputdata,tspan,pred);
+                    
+                    
                     %axis([0 steps+10 -5 (magnE(i)+10)]);
                     saveas(f, strcat('graph',num2str(i),num2str(j),num2str(l),'.png'));
                 
-                %write to HTML
+                
+                    
+                    
+                    
+                    
+                    
+                    %write to HTML
                 fid = fopen('results.html','a')
                 fprintf(fid, ['<tr><td>System :',num2str(i),'</td>']);
                 fprintf(fid, ['<td>Load :',num2str(j),'</td>']);
