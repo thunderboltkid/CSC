@@ -17,8 +17,8 @@ for i=1:length(SYSTEMS);                    %   e.g. cstr
             e = METHOD{k}(steps,magnE,deadT,LOAD,SYSTEMS,i,j,start,Ts);
             e(:,2) = dev(e(:,2),start); e(:,3) = dev(e(:,3),start);                                    % REMOVE EQUILIBRIUM VALUES input,% output
             % VALIDATION
-            v = METHOD{k}(steps,magnE,deadT,LOAD,SYSTEMS,i,j,start,Ts);
-            v(:,2) = dev(v(:,2),start); v(:,3) = dev(v(:,3),start);                                    % REMOVE EQUILIBRIUM VALUES % input , output
+            %v = METHOD{k}(steps,magnE,deadT,LOAD,SYSTEMS,i,j,start,Ts);
+            %v(:,2) = dev(v(:,2),start); v(:,3) = dev(v(:,3),start);                                    % REMOVE EQUILIBRIUM VALUES % input , output
             % CREATE IDDATA OBJECTS
             ze = iddata(e(:,3) , e(:,2) , Ts);       % Output, Input, Stepsize
             
@@ -26,7 +26,7 @@ for i=1:length(SYSTEMS);                    %   e.g. cstr
             % ORDER SELECTION BASED ON RISSANEN MDL CRITERION
             %[nn, vmod] = selstruc(arxstruc(ze(:,:,1),zv(:,:,1),NN1),'mdl');%
             % ORDER SELECTION BASED ON AKAIKE AIC CRITERION
-            [nn, vmod] = selstruc(arxstruc(ze(:,:,1),ze(:,:,1),NN1),'aic'); % The data sets ze and zv need not be of equal size. ( from ARXstruc help )
+            [nn, vmod] = selstruc(arxstruc(ze(:,:,1),ze(:,:,1),NN1),'aic'); % arxstruc(ze,zv,n) The data sets ze and zv need not be of equal size. ( from ARXstruc help )
             % They could, however, be the same sets, in which case the computation is faster.
             M = buildmatrix(ze,nn);
             
@@ -42,7 +42,7 @@ for i=1:length(SYSTEMS);                    %   e.g. cstr
                 
                 for m = 1:length(LOAD);
                     v =  METHOD{k}(steps,magnV,deadT,LOAD,SYSTEMS,i,m,start,Ts);
-                    v(:,2) = dev(e(:,2),start); v(:,3) = dev(v(:,3),start);                                                  % create validation data set and plot
+                    v(:,2) = dev(v(:,2),start); v(:,3) = dev(v(:,3),start);                                                  % create validation data set and plot
                     zv = iddata(v(:,3) , v(:,2) , Ts);       % Output, Input, Stepsize                                                    % true response
                     Mv = buildmatrix(zv,nn);
                     %plot & save
