@@ -1,9 +1,0 @@
-function BoxJen(data,orders)
-
-        % DATA PREPARATION
-            InputPoles = orders(1);
-            OutputPoles= orders(2);
-            Deadtime   = orders(3);
-         
-D = bj(data,'na',InputPoles,'nb',OutputPoles,'nk',Deadtime)
-end
