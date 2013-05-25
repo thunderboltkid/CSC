@@ -5,6 +5,7 @@ X(:,1) = ze.outputdata;
 y = ze.outputdata;
 Dx = nn(1);                     % estimated orders in x and m (input and output) Luyben 526
 Dm = nn(2);
+
 tspan = 1:length(ze.inputdata);
 
 M = [];

@@ -1,4 +1,5 @@
-function E = eulerI(steps,magn,deadT,LOAD,SYSTEMS,i,j,start,Ts); %#Euler se metode Labuschagne et al. "'n Inleiding tot Numeriese Analise" p 87
+function E = euler(steps,magn,deadT,LOAD,SYSTEMS,i,j,start,Ts); %#Euler se metode Labuschagne et al. "'n Inleiding tot Numeriese Analise" p 87
+
 M = [0 0 0];
 M_deadT = [];
 for t = 1:Ts:steps;
@@ -14,6 +15,7 @@ for t = 1:Ts:steps;
         inputvar_ss = dS(1);
         var(1) = inputvar_ss;
         M = [t (inputvar_ss+L) var(2)];
+        M_deadT = [t (inputvar_ss+L) var(2)];
     else
         R = [t (inputvar_ss+L) var(2)];
         
@@ -23,14 +25,10 @@ for t = 1:Ts:steps;
             end
         elseif deadT>0;
             RdeadT = [t (inputvar_ss+L) M((t*inv(Ts)-(deadT*inv(Ts))),3)];
-            M_deadT = [M_deadT;RdeadT];
         end
-            M = [M;R];
-        
+        M = [M;R];
+        M_deadT = [M_deadT;RdeadT];
     end
-    
-    
-    
 end
 if deadT >0
     E = M_deadT;

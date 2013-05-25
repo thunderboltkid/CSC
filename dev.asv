@@ -1,0 +1,7 @@
+function F = dev(a,start,deadT)
+
+x = a((deadT+1):size(a));
+x = 
+F = a - ones(size(a),1) * mean(a(1:((start+deadT)-1)));
+
+end
